@@ -1,0 +1,14 @@
+quarkus:
+#  datasource:
+#    db-kind: mongodb
+#    username: root
+#    password: 8263
+#    jdbc:
+#      url: jdbc:mysql://localhost:3306/bitcoin?autoReconnect=true
+  mongodb:
+    database: bitcoin
+    "mongo-client-configs":
+      write-concern:
+        retry-writes: false
+    connection-string: mongodb://localhost:27017/bitcoin
+
