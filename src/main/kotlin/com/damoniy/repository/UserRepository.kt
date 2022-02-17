@@ -2,23 +2,27 @@ package com.damoniy.repository
 
 import com.damoniy.model.User
 import io.quarkus.mongodb.panache.kotlin.PanacheMongoRepository
-import io.quarkus.panache.common.Parameters
 import org.bson.types.ObjectId
 import javax.enterprise.context.ApplicationScoped
 
 @ApplicationScoped
 class UserRepository: PanacheMongoRepository<User> {
 
-//    fun updatePassword(password: String?, id: Long): Int {
-//        return update("password = :password where id = :id",
-//            Parameters.with("id", id).and("password", password))
-//    }
-
-    fun findEntity(id: ObjectId): User? {
-        return find("id", "620bf6184669922ec43204e4").firstResult()
+    fun findEntityById(id: ObjectId): User? {
+        return findById(id)
     }
 
-    fun updateEntity(id: ObjectId, password: String?) {
-    this.update("password = :password where id = :id", Parameters.with("password", password).and("id", "id"))
+    fun findEntityByName(name: String): User? {
+        return find("name", name).firstResult()
+    }
+
+    fun findEntityByCPF(cpf: String): User? {
+        return find("cpf", cpf).firstResult()
+    }
+
+    fun updateEntity(id: ObjectId, body: User): User? {
+        this.update("name = ?1 and nickname = ?2 and password = ?3",
+            body.name, body.nickname, body.password).where("_id", id)
+        return find("_id", id).firstResult()
     }
 }

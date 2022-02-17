@@ -9,4 +9,4 @@ data class User @BsonCreator constructor(
     @BsonProperty("cpf") var CPF: String?,
     @BsonProperty("nickname") var nickname: String?,
     @BsonProperty("password") var password: String?):
-        PanacheMongoEntity()
+    PanacheMongoEntity()
